@@ -79,6 +79,84 @@ const Index = () => {
       title: 'Гуманист',
       description: 'Сострадание, универсальность, завершение',
       color: 'from-purple-500 to-pink-500'
+    },
+    {
+      number: 10,
+      title: 'Первопроходец',
+      description: 'Новые начинания, потенциал, цикличность',
+      color: 'from-pink-500 to-rose-500'
+    },
+    {
+      number: 11,
+      title: 'Мастер-учитель',
+      description: 'Интуиция, просветление, духовный посредник',
+      color: 'from-rose-500 to-red-500'
+    },
+    {
+      number: 12,
+      title: 'Творческий гений',
+      description: 'Самовыражение, артистизм, харизма',
+      color: 'from-red-400 to-orange-400'
+    },
+    {
+      number: 13,
+      title: 'Трансформатор',
+      description: 'Перерождение, практичность, преобразование',
+      color: 'from-orange-400 to-amber-500'
+    },
+    {
+      number: 14,
+      title: 'Балансировщик',
+      description: 'Умеренность, гармония, адаптация',
+      color: 'from-amber-500 to-yellow-400'
+    },
+    {
+      number: 15,
+      title: 'Целитель',
+      description: 'Любовь, ответственность, семейные ценности',
+      color: 'from-yellow-400 to-lime-500'
+    },
+    {
+      number: 16,
+      title: 'Интуит',
+      description: 'Самопознание, духовный рост, кризис и обновление',
+      color: 'from-lime-500 to-green-400'
+    },
+    {
+      number: 17,
+      title: 'Звезда',
+      description: 'Надежда, вдохновение, звёздное качество',
+      color: 'from-green-400 to-emerald-500'
+    },
+    {
+      number: 18,
+      title: 'Гуманитарий',
+      description: 'Эмпатия, служение человечеству, мечты',
+      color: 'from-emerald-500 to-teal-400'
+    },
+    {
+      number: 19,
+      title: 'Солнечный',
+      description: 'Успех, личная сила, самодостаточность',
+      color: 'from-teal-400 to-cyan-400'
+    },
+    {
+      number: 20,
+      title: 'Пробуждение',
+      description: 'Суждение, осознание, духовное пробуждение',
+      color: 'from-cyan-400 to-sky-500'
+    },
+    {
+      number: 21,
+      title: 'Мир',
+      description: 'Завершение, целостность, космическое сознание',
+      color: 'from-sky-500 to-blue-400'
+    },
+    {
+      number: 22,
+      title: 'Мастер-строитель',
+      description: 'Материализация мечты, архитектор реальности',
+      color: 'from-blue-400 to-violet-500'
     }
   ];
 
