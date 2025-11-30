@@ -11,6 +11,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 const Index = () => {
   const [birthDate, setBirthDate] = useState('');
   const [lifePathNumber, setLifePathNumber] = useState<number | null>(null);
+  
+  const [contactName, setContactName] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactMessage, setContactMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const calculateLifePath = () => {
     if (!birthDate) return;
@@ -23,6 +29,40 @@ const Index = () => {
     }
     
     setLifePathNumber(sum);
+  };
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('https://functions.poehali.dev/b09e2d03-085c-46cd-8eab-751e8f2278ab', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: contactName,
+          email: contactEmail,
+          message: contactMessage
+        })
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setContactName('');
+        setContactEmail('');
+        setContactMessage('');
+        setTimeout(() => setSubmitStatus('idle'), 5000);
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const numbers = [
@@ -494,21 +534,60 @@ const Index = () => {
                 <CardDescription>Напишите нам, и мы ответим в течение 24 часов</CardDescription>
               </CardHeader>
               <CardContent>
-                <form className="space-y-4">
+                <form onSubmit={handleContactSubmit} className="space-y-4">
                   <div>
                     <Label htmlFor="name">Имя</Label>
-                    <Input id="name" placeholder="Ваше имя" />
+                    <Input 
+                      id="name" 
+                      placeholder="Ваше имя" 
+                      value={contactName}
+                      onChange={(e) => setContactName(e.target.value)}
+                      required
+                    />
                   </div>
                   <div>
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="your@email.com" />
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      placeholder="your@email.com"
+                      value={contactEmail}
+                      onChange={(e) => setContactEmail(e.target.value)}
+                      required
+                    />
                   </div>
                   <div>
                     <Label htmlFor="message">Сообщение</Label>
-                    <Textarea id="message" placeholder="Расскажите, чем мы можем помочь..." rows={4} />
+                    <Textarea 
+                      id="message" 
+                      placeholder="Расскажите, чем мы можем помочь..." 
+                      rows={4}
+                      value={contactMessage}
+                      onChange={(e) => setContactMessage(e.target.value)}
+                      required
+                    />
                   </div>
-                  <Button className="w-full mystical-glow">
-                    Отправить
+                  
+                  {submitStatus === 'success' && (
+                    <div className="p-3 bg-green-500/10 border border-green-500/30 rounded-lg text-green-500 text-sm flex items-center gap-2">
+                      <Icon name="CheckCircle" size={18} />
+                      Сообщение успешно отправлено!
+                    </div>
+                  )}
+                  
+                  {submitStatus === 'error' && (
+                    <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-500 text-sm flex items-center gap-2">
+                      <Icon name="AlertCircle" size={18} />
+                      Ошибка отправки. Попробуйте позже.
+                    </div>
+                  )}
+                  
+                  <Button 
+                    type="submit" 
+                    className="w-full mystical-glow"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Отправка...' : 'Отправить'}
                     <Icon name="Send" className="ml-2" size={16} />
                   </Button>
                 </form>

@@ -1,0 +1,47 @@
+{
+  "tests": [
+    {
+      "name": "Handle OPTIONS preflight request",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Reject GET requests",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 405,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Validate required fields",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "",
+        "email": "invalid",
+        "message": ""
+      },
+      "expectedStatus": 500
+    },
+    {
+      "name": "Accept valid contact form",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Test User",
+        "email": "test@example.com",
+        "message": "Test message"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "message": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
